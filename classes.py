@@ -8,26 +8,51 @@ class Environment():
 
 
 class Drone():
+
     def __init__(self, id, position, weight, products):
         self.id = id
         self.position = position
         self.weight = weight
         self.products = []
 
-    def load(self, warehouse, product, num_items):
+    def load(self, warehouse, product_id, num_items):
 
-        # do loading
+        # fly drone to warehouse location
+        self.move(warehouse.location)
 
-        return Command(self.id, 'load', warehouse.id, product.id, num_items)
+        # remove items from warehouse
+        warehouse.products[product_id] = warehouse.products[product_id] - num_items
 
-    def unload(self, warehouse, product, num_items):
+        # add items to drone
+        self.products[product_id] = self.products[product_id] + num_items
+        return Command(self.id, 'load', warehouse.id, product_id, num_items)
 
-        # do unloading
+    def unload(self, warehouse, product_id, num_items):
 
-        return Command(self.id, 'unload', warehouse.id, product.id, num_items)
+        # fly drone to warehouse location
+        self.move(warehouse.location)
 
-    def deliver(self):
-        pass
+        # remove items from drone
+        self.products[product_id] = self.products[product_id] + num_items
+
+        # add items to warehouse
+        warehouse.products[product_id] = warehouse.products[product_id] - num_items
+        return Command(self.id, 'unload', warehouse.id, product_id, num_items)
+
+    def deliver(self, order, product_id, num_items):
+
+        # fly drone to order location
+        self.move(order.location)
+
+        # remove items from drone
+        self.products[product_id] = self.products[product_id] + num_items
+
+        # add items to order
+        order.products[product_id] = order.products[product_id] + num_items
+        return Command(self.id, 'deliver', order.id, product_id, num_items)
+
+    def move(self, destination):
+        self.position = destination
 
 
 class Warehouse():
@@ -35,12 +60,6 @@ class Warehouse():
         self.id = id
         self.position = position
         self.products = products
-
-
-class Product():
-    def __init__(self, id, weight):
-        self.id = id
-        self.weight = weight
 
 
 class Order():
