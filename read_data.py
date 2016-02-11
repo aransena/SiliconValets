@@ -15,13 +15,11 @@ def getData(dataset):
 
     line = nextLine(f)
     
-    environment = cl.Environment(dimensions = [line[0],line[1]], num_drones = line[2], turn = line[3], orders = 0, max_payload = line[4])
-
-
     line = nextLine(f)
     num_products=line[0]
     line = nextLine(f)
-    product_weights=line
+    p_weights=line
+    environment = cl.Environment(dimensions = [line[0],line[1]], num_drones = line[2], turn = line[3], orders = 0, max_payload = line[4], product_weights = p_weights)
     products=[]
     #for i in range(0,num_products):
         #products.append(cl.Product(i,product_weights[i]))
