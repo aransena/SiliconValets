@@ -57,6 +57,6 @@ def getData(dataset):
         order = cl.Order(pos,num_products, products)
         orders.append(order)
 
-    data=[environment,products,warehouses,orders]
+    data=[environment,products,warehouses,orders,drones]
 
     return data
