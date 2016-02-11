@@ -1,6 +1,7 @@
 class Environment():
-    def __init__(self, dimensions, turn, orders, max_payload):
+    def __init__(self, dimensions, num_drones,turn, orders, max_payload):
         self.dimensions = dimensions
+        self.num_drones = num_drones
         self.turn = turn
         self.orders = orders
         self.max_payload = max_payload
@@ -35,6 +36,7 @@ class Product():
 
 
 class Order():
-    def __init__(self, location, products):
+    def __init__(self, location, num_products, products):
         self.location = location
+        self.num_products = num_products
         self.products = products
