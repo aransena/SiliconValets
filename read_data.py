@@ -54,7 +54,11 @@ def getData(dataset):
         products = [0]*environment.num_products
         
         for p in line:
-            ind = environment.product_weights.index(p)
+            try:
+                ind = environment.product_weights.index(p)
+            except ValueError:
+                ind = -1
+                
             if ind >= 0:
                 products[ind]+=1
                 
