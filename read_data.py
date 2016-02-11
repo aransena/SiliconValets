@@ -19,7 +19,7 @@ def getData(dataset):
     num_products=line[0]
     line = nextLine(f)
     p_weights=line
-    environment = cl.Environment(dimensions = [line[0],line[1]], num_drones = line[2], turn = line[3], orders = 0, max_payload = line[4], product_weights = p_weights)
+    environment = cl.Environment(dimensions = [line[0],line[1]], num_drones = line[2], turn = line[3], orders = 0, max_payload = line[4],num_products = num_products, product_weights = p_weights)
     products=[]
     #for i in range(0,num_products):
         #products.append(cl.Product(i,product_weights[i]))
@@ -51,7 +51,13 @@ def getData(dataset):
         line=nextLine(f)
         num_products = line[0]
         line=nextLine(f)
-        products = line
+        products = [0]*environment.num_products
+        
+        for p in line:
+            ind = environment.product_weights.index(p)
+            if ind >= 0:
+                products[ind]+=1
+                
         order = cl.Order(i,pos,num_products, products)
         orders.append(order)
 

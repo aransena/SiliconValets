@@ -31,7 +31,7 @@ if __name__ == '__main__':
     orders = [order for order in sorted(order_total_weights, key=operator.itemgetter(1))]
 
     for order in environment.orders:
-
+        calculate_total_weight(order,product_weights)
         for drone in drones:
 
             drone_warehouse_dists = [(warehouse, get_distance(drone, warehouse)) for warehouse in warehouses]
