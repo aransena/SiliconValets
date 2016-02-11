@@ -23,7 +23,7 @@ def getData(dataset):
     line = nextLine(f)
     product_weights=line
     products=[]
-    for i in range(0,num_products):
+    #for i in range(0,num_products):
         #products.append(cl.Product(i,product_weights[i]))
 
     line = nextLine(f)
