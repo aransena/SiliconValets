@@ -8,20 +8,35 @@ def get_distance(object1, object2):
     return math.sqrt(abs(object1.position[0] - object2.position[0]) + abs(object1.position[1] + object2.position[1]))
 
 
+def calculate_total_weight(order, product_weights):
+    """
+    Calculates the total weight of an order.
+    :param order:
+    :return:
+    """
+    total_weight = 0
+    for product_id, num_items in enumerate(order.products):
+        total_weight += num_items * product_weights[product_id]
+    return total_weight
+
+
 if __name__ == '__main__':
 
-    environment, drones, warehouses = getData('busy_day.in')
+    environment, drones, warehouses, product_weights, orders = getData('busy_day.in')
     commands = []
 
-    # do something with orders first
+    # sort order by total weight of items in order
+    order_total_weights = [(order, calculate_total_weight(order, product_weights)) for order in orders]
+
+    orders = [order for order in sorted(order_total_weights, key=operator.itemgetter(1))]
 
     for order in environment.orders:
 
         for drone in drones:
 
-            warehouse_warehouse_dists = [(warehouse, get_distance(drone, warehouse)) for warehouse in warehouses]
+            drone_warehouse_dists = [(warehouse, get_distance(drone, warehouse)) for warehouse in warehouses]
             # sort warehouses in order of closeness
-            for warehouse in [warehouse for warehouse, _ in sorted(warehouse_warehouse_dists, key=operator.itemgetter(1))]:
+            for warehouse in [warehouse for warehouse, _ in sorted(drone_warehouse_dists, key=operator.itemgetter(1))]:
 
                 # check if products are in warehouse
                 # products is an array indexed by product ids, with numbers indicating the number of items
@@ -37,6 +52,5 @@ if __name__ == '__main__':
                         drone.deliver(order, product_id, num_items, commands)
 
                         break
-
 
             # get closest warehouses where all of the required products are inside
