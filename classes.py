@@ -15,7 +15,7 @@ class Drone():
         self.weight = weight
         self.products = []
 
-    def load(self, warehouse, product_id, num_items):
+    def load(self, warehouse, product_id, num_items, commands):
 
         # fly drone to warehouse location
         self.move(warehouse.location)
@@ -25,9 +25,9 @@ class Drone():
 
         # add items to drone
         self.products[product_id] = self.products[product_id] + num_items
-        return Command(self.id, 'load', warehouse.id, product_id, num_items)
+        commands.append(Command(self.id, 'load', warehouse.id, product_id, num_items))
 
-    def unload(self, warehouse, product_id, num_items):
+    def unload(self, warehouse, product_id, num_items, commands):
 
         # fly drone to warehouse location
         self.move(warehouse.location)
@@ -37,9 +37,9 @@ class Drone():
 
         # add items to warehouse
         warehouse.products[product_id] = warehouse.products[product_id] - num_items
-        return Command(self.id, 'unload', warehouse.id, product_id, num_items)
+        commands.append(Command(self.id, 'unload', warehouse.id, product_id, num_items))
 
-    def deliver(self, order, product_id, num_items):
+    def deliver(self, order, product_id, num_items, commands):
 
         # fly drone to order location
         self.move(order.location)
@@ -49,7 +49,7 @@ class Drone():
 
         # add items to order
         order.products[product_id] = order.products[product_id] + num_items
-        return Command(self.id, 'deliver', order.id, product_id, num_items)
+        commands.append(Command(self.id, 'deliver', order.id, product_id, num_items))
 
     def move(self, destination):
         self.position = destination

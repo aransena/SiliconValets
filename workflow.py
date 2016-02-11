@@ -1,10 +1,8 @@
-from classes import Environment, Drone, Warehouse, Product, Order
+from classes import Environment, Drone, Warehouse, Order
 import math
 import operator
+from read_data import getData
 
-
-def fake_load():
-    return Environment(), Drone(), Warehouse()
 
 def get_distance(object1, object2):
     return math.sqrt(abs(object1.position[0] - object2.position[0]) + abs(object1.position[1] + object2.position[1]))
@@ -12,7 +10,7 @@ def get_distance(object1, object2):
 
 if __name__ == '__main__':
 
-    environment, drones, warehouses = fake_load()
+    environment, drones, warehouses = getData('busy_day.in')
     commands = []
 
     # do something with orders first
@@ -27,13 +25,17 @@ if __name__ == '__main__':
 
                 # check if products are in warehouse
                 # products is an array indexed by product ids, with numbers indicating the number of items
-                for product_id, num_products in order.products:
+                for product_id, num_items in order.products:
 
                     # check if required number of products are in warehouse
-                    if warehouse.products[product_id] <= num_products:
+                    if warehouse.products[product_id] <= num_items:
 
                         # if so then, drone should go to warehouse
-                        commands.append(drone.load())
+                        drone.load(warehouse, product_id, num_items, commands)
+
+                        # the drone then brings the items to the order location
+                        drone.deliver(order, product_id, num_items, commands)
+
                         break
 
 
