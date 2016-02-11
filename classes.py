@@ -8,24 +8,31 @@ class Environment():
 
 
 class Drone():
-    def __init__(self, id, position, max_payload, weight):
+    def __init__(self, id, position, weight, products):
         self.id = id
         self.position = position
         self.weight = weight
         self.products = []
 
-    def load(self):
-        pass
+    def load(self, warehouse, product, num_items):
 
-    def unload(self):
-        pass
+        # do loading
+
+        return Command(self.id, 'load', warehouse.id, product.id, num_items)
+
+    def unload(self, warehouse, product, num_items):
+
+        # do unloading
+
+        return Command(self.id, 'unload', warehouse.id, product.id, num_items)
 
     def deliver(self):
         pass
 
 
 class Warehouse():
-    def __init__(self, position, products):
+    def __init__(self, id, position, products):
+        self.id = id
         self.position = position
         self.products = products
 
@@ -37,7 +44,8 @@ class Product():
 
 
 class Order():
-    def __init__(self, location, num_products, products):
+    def __init__(self, id, location, num_products, products):
+        self.id = id
         self.location = location
         self.num_products = num_products
         self.products = products
