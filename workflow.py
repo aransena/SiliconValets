@@ -20,6 +20,9 @@ def calculate_total_weight(order, product_weights):
     return total_weight
 
 
+def get_current_weight(drone, product_weights):
+    return calculate_total_weight(drone, product_weights)
+
 if __name__ == '__main__':
 
     environment, warehouses, orders, drones = getData('busy_day.in')
@@ -47,8 +50,18 @@ if __name__ == '__main__':
                 if warehouse.products[product_id] > 0:
 
                     # if so then, then check how many products we can load on this drone
-                    warehouse.products[]
-                    environment.product_weights[product_id]
+                    current_weight = get_current_weight(drone, environment.product_weights)
+                    remaining_payload = environment.max_payload - current_weight
+
+                    # number of items that can be loaded in drone wrt payload
+                    num_items_to_load = remaining_payload / environment.product_weights[product_id]
+
+                    # if we have more items in the warehouse than we need for the order, just load how many items fit in the payload
+                    if warehouse.products[product_id] > order.products[product_id]:
+                        pass
+
+                    #warehouse.products[]
+                    #environment.product_weights[product_id]
 
 
                     drone.load(warehouse, product_id, order.products[product_id], commands)
