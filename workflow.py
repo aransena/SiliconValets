@@ -30,27 +30,48 @@ if __name__ == '__main__':
 
     orders = [order for order in sorted(order_total_weights, key=operator.itemgetter(1))]
 
+    current_drone = drones[0]
     for order in orders:
 
-        for drone in drones:
+        fulfilled = False
+        product_id = 0
 
-            drone_warehouse_dists = [(warehouse, get_distance(drone, warehouse)) for warehouse in warehouses]
+        # check if items are left in the order
+        while order.products[product_id] > 0:
+
+            drone_warehouse_dists = [(warehouse, get_distance(current_drone, warehouse)) for warehouse in warehouses]
             # sort warehouses in order of closeness
             for warehouse in [warehouse for warehouse, _ in sorted(drone_warehouse_dists, key=operator.itemgetter(1))]:
 
-                # check if products are in warehouse
-                # products is an array indexed by product ids, with numbers indicating the number of items
-                for product_id, num_items in order.products:
+                # check if required number of products are in warehouse
+                if warehouse.products[product_id] > 0:
 
-                    # check if required number of products are in warehouse
-                    if warehouse.products[product_id] <= num_items:
+                    # if so then, then check how many products we can load on this drone
+                    warehouse.products[]
+                    environment.product_weights[product_id]
 
-                        # if so then, drone should go to warehouse
-                        drone.load(warehouse, product_id, num_items, commands)
 
-                        # the drone then brings the items to the order location
-                        drone.deliver(order, product_id, num_items, commands)
+                    drone.load(warehouse, product_id, order.products[product_id], commands)
 
-                        break
+
+
+                    # the drone then brings the items to the order location
+                    drone.deliver(order, product_id, order.products[product_id], commands)
+
+                    delivered = True
+                    break
+
+
+
+
+        for drone in drones:
+
+            delivered = False
+
+
+
+            # go to next drone if current drone has delivered an order
+            if delivered:
+                break
 
             # get closest warehouses where all of the required products are inside
