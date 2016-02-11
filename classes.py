@@ -38,3 +38,14 @@ class Order():
     def __init__(self, location, products):
         self.location = location
         self.products = products
+
+
+class Command():
+    def __init__(self, drone_id, command_type, warehouse_or_customer_id, product_id, num_products):
+        self.drone_id = drone_id
+        command_type = command_type.lower()
+        if command_type not in ['load', 'unload', 'deliver', 'l', 'u', 'd']:
+            raise ValueError('Command type has to be one of load, unload, deliver, or l, u, d.')
+        self.command_type = command_type
+        self.product_id = product_id
+        self.num_products = num_products
