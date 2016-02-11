@@ -62,7 +62,11 @@ if __name__ == '__main__':
 
                     #warehouse.products[]
                     #environment.product_weights[product_id]
-
+                    # Aran
+                    #for item in order.products:
+                    #    payload += environment.product_weights[item.id]
+                    #warehouse.products[]
+                    #environment.product_weights[product_id]
 
                     drone.load(warehouse, product_id, order.products[product_id], commands)
 

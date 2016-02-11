@@ -4,6 +4,7 @@ class Environment():
         self.num_drones = num_drones
         self.turn = turn
         self.orders = orders
+        self.num_products = num_products
         self.max_payload = max_payload
         self.product_weights = product_weights
 
