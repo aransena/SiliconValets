@@ -22,15 +22,15 @@ def calculate_total_weight(order, product_weights):
 
 if __name__ == '__main__':
 
-    environment, drones, warehouses, product_weights, orders = getData('busy_day.in')
+    environment, warehouses, orders, drones = getData('busy_day.in')
     commands = []
 
     # sort order by total weight of items in order
-    order_total_weights = [(order, calculate_total_weight(order, product_weights)) for order in orders]
+    order_total_weights = [(order, calculate_total_weight(order, environment.product_weights)) for order in orders]
 
     orders = [order for order in sorted(order_total_weights, key=operator.itemgetter(1))]
 
-    for order in environment.orders:
+    for order in orders:
 
         for drone in drones:
 
