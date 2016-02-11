@@ -9,7 +9,7 @@ def nextLine(f):
     
 
 def getData(dataset):
-    dataset = "busy_day.in"
+    #dataset = "busy_day.in"
 
     f = open(dataset, 'r')
 
@@ -57,6 +57,6 @@ def getData(dataset):
         order = cl.Order(i,pos,num_products, products)
         orders.append(order)
 
-    data=[environment,products,warehouses,orders,drones]
+    data=[environment,warehouses,orders,drones]
 
     return data
