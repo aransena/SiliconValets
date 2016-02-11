@@ -1,9 +1,9 @@
 import read_data as rd
 import matplotlib.pyplot as plt
 
-#data = rd.getData("example.in")
+data = rd.getData("example.in")
 #data = rd.getData("mother_of_all_warehouses.in")
-data = rd.getData("redundancy.in")
+#data = rd.getData("redundancy.in")
 drones = data[3]
 print drones[0].position
 

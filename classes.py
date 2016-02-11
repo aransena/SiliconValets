@@ -1,5 +1,5 @@
 class Environment():
-    def __init__(self, dimensions, num_drones,turn, orders, max_payload,product_weights):
+    def __init__(self, dimensions, num_drones,turn, orders, max_payload,num_products,product_weights):
         self.dimensions = dimensions
         self.num_drones = num_drones
         self.turn = turn
