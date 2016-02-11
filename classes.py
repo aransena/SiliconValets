@@ -8,7 +8,8 @@ class Environment():
 
 
 class Drone():
-    def __init__(self, position, max_payload, weight):
+    def __init__(self, id, position, max_payload, weight):
+        self.id = id
         self.position = position
         self.weight = weight
         self.products = []
