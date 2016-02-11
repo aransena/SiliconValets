@@ -13,8 +13,8 @@ def getData(dataset):
 
     f = open(dataset, 'r')
 
-    line = f.readline()
-
+    line = nextLine(f)
+    
     environment = cl.Environment(dimensions = [line[0],line[1]], num_drones = line[2], turn = line[3], orders = 0, max_payload = line[4])
 
 
@@ -34,13 +34,13 @@ def getData(dataset):
         pos = [line[0],line[1]]
         line=nextLine(f)
         products = line
-        warehouse = cl.Warehouse(pos,products)
+        warehouse = cl.Warehouse(i,pos,products)
         warehouses.append(warehouse)
 
     drones=[]
     
     for i in range(0,environment.num_drones):
-        drone = cl.Drone(i,warehouses[0].position,0)
+        drone = cl.Drone(i,warehouses[0].position,0,[])
         drones.append(drone)
 
     line = nextLine(f)
@@ -54,7 +54,7 @@ def getData(dataset):
         num_products = line[0]
         line=nextLine(f)
         products = line
-        order = cl.Order(pos,num_products, products)
+        order = cl.Order(i,pos,num_products, products)
         orders.append(order)
 
     data=[environment,products,warehouses,orders,drones]
