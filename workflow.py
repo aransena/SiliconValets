@@ -47,7 +47,9 @@ if __name__ == '__main__':
                 if warehouse.products[product_id] > 0:
 
                     # if so then, then check how many products we can load on this drone
-                    warehouse.products[]
+                    for item in order.products:
+                        payload += environment.product_weights[item.id]
+                    #warehouse.products[]
                     environment.product_weights[product_id]
 
 
